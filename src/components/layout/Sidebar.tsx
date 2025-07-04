@@ -25,7 +25,11 @@ import {
   Settings,
   User,
   Bell,
-  Globe
+  Globe,
+  Mail,
+  MessageCircle,
+  Calendar,
+  Heart
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -51,13 +55,22 @@ const navigationItems = [
       { title: 'Orders', url: '/orders', icon: ShoppingCart },
       { title: 'Customers', url: '/customers', icon: Users },
       { title: 'Custom Requests', url: '/custom-requests', icon: FileText },
+      { title: 'Customer Favorites', url: '/customer-favorites', icon: Heart },
     ]
   },
   {
     title: 'Communication',
     items: [
+      { title: 'Mail Inbox', url: '/mail-inbox', icon: Mail },
+      { title: 'Chat', url: '/chat', icon: MessageCircle },
       { title: 'Messages', url: '/messages', icon: MessageSquare },
       { title: 'International', url: '/international', icon: Globe },
+    ]
+  },
+  {
+    title: 'Schedule',
+    items: [
+      { title: 'Meeting Schedule', url: '/meeting-schedule', icon: Calendar },
     ]
   },
   {

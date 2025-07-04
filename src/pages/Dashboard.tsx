@@ -4,6 +4,12 @@ import { StatsCard } from '@/components/dashboard/StatsCard';
 import { SalesChart } from '@/components/dashboard/SalesChart';
 import { CategoryChart } from '@/components/dashboard/CategoryChart';
 import { RecentOrdersTable } from '@/components/dashboard/RecentOrdersTable';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { 
   mockDashboardStats, 
   mockSalesData, 
@@ -86,12 +92,12 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Secondary Stats */}
+      {/* Advanced Analytics */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatsCard
-          title="Total Customers"
-          value={dashboardStats.totalCustomers}
-          description="Registered users"
+          title="Active Users"
+          value="1,247"
+          description="Currently online"
           icon={Users}
           trend={{ value: 15.3, isPositive: true }}
         />
@@ -116,6 +122,87 @@ export default function Dashboard() {
           icon={FileText}
           trend={{ value: 25.0, isPositive: true }}
         />
+      </div>
+
+      {/* Social Media & Analytics */}
+      <div className="grid gap-6 md:grid-cols-3">
+        <Card className="border-border">
+          <CardHeader>
+            <CardTitle className="text-card-foreground">Social Media Traffic</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Facebook</span>
+                <span className="font-medium">42%</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Instagram</span>
+                <span className="font-medium">28%</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Twitter</span>
+                <span className="font-medium">18%</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">LinkedIn</span>
+                <span className="font-medium">12%</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border">
+          <CardHeader>
+            <CardTitle className="text-card-foreground">Top Countries</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">🇮🇳 India</span>
+                <span className="font-medium">65%</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">🇺🇸 USA</span>
+                <span className="font-medium">15%</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">🇬🇧 UK</span>
+                <span className="font-medium">12%</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">🇨🇦 Canada</span>
+                <span className="font-medium">8%</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border">
+          <CardHeader>
+            <CardTitle className="text-card-foreground">Most Visited Pages</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Products</span>
+                <span className="font-medium">3,247</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Dashboard</span>
+                <span className="font-medium">2,891</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Orders</span>
+                <span className="font-medium">1,834</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Categories</span>
+                <span className="font-medium">1,247</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Charts */}

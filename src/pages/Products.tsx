@@ -23,13 +23,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { mockProducts, mockCategories } from '@/data/mockData';
-import { Search, Plus, Filter, Edit, Eye, Package } from 'lucide-react';
+import { Search, Plus, Filter, Edit, Eye, Package, Upload, X } from 'lucide-react';
 
 export default function Products() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<any>(null);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
   const filteredProducts = mockProducts.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -59,6 +71,30 @@ export default function Products() {
       currency: 'INR',
       maximumFractionDigits: 0,
     }).format(amount);
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const result = e.target?.result as string;
+          setUploadedImages(prev => [...prev, result]);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setUploadedImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const openEditDialog = (product: any) => {
+    setEditingProduct(product);
+    setUploadedImages([]);
+    setIsEditDialogOpen(true);
   };
 
   return (
@@ -265,7 +301,12 @@ export default function Products() {
                       <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
                         <Eye className="w-4 h-4" />
                       </Button>
-                      <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="text-primary hover:text-primary/80"
+                        onClick={() => openEditDialog(product)}
+                      >
                         <Edit className="w-4 h-4" />
                       </Button>
                     </div>
@@ -276,6 +317,196 @@ export default function Products() {
           </Table>
         </CardContent>
       </Card>
+
+      {/* Edit Product Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Edit Product</DialogTitle>
+          </DialogHeader>
+          {editingProduct && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="productName">Product Name</Label>
+                  <Input
+                    id="productName"
+                    defaultValue={editingProduct.name}
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="sku">SKU</Label>
+                  <Input
+                    id="sku"
+                    defaultValue={editingProduct.sku}
+                    className="mt-1"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="category">Category</Label>
+                  <Select defaultValue={editingProduct.category}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {mockCategories.map(category => (
+                        <SelectItem key={category.id} value={category.name}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="size">Size</Label>
+                  <Input
+                    id="size"
+                    defaultValue={editingProduct.size}
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="material">Material</Label>
+                  <Input
+                    id="material"
+                    defaultValue={editingProduct.material}
+                    placeholder="e.g., Pure Silk, Wool Blend, Cotton"
+                    className="mt-1"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="price">Price (₹)</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    defaultValue={editingProduct.price}
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="originalPrice">Original Price (₹)</Label>
+                  <Input
+                    id="originalPrice"
+                    type="number"
+                    defaultValue={editingProduct.originalPrice}
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="stock">Stock Quantity</Label>
+                  <Input
+                    id="stock"
+                    type="number"
+                    defaultValue={editingProduct.stock}
+                    className="mt-1"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  defaultValue={editingProduct.description}
+                  className="mt-1"
+                  rows={3}
+                />
+              </div>
+
+              <div>
+                <Label>Product Images</Label>
+                <div className="mt-2 space-y-4">
+                  {/* Image Upload */}
+                  <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                      id="imageUpload"
+                    />
+                    <label htmlFor="imageUpload" className="cursor-pointer">
+                      <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                      <p className="text-muted-foreground">
+                        Click to upload images or drag and drop
+                      </p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        PNG, JPG, WebP up to 10MB each
+                      </p>
+                    </label>
+                  </div>
+
+                  {/* Uploaded Images Preview */}
+                  {uploadedImages.length > 0 && (
+                    <div className="grid grid-cols-4 gap-4">
+                      {uploadedImages.map((image, index) => (
+                        <div key={index} className="relative group">
+                          <img
+                            src={image}
+                            alt={`Upload ${index + 1}`}
+                            className="w-full h-24 object-cover rounded-lg border border-border"
+                          />
+                          <button
+                            onClick={() => removeImage(index)}
+                            className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="status">Status</Label>
+                  <Select defaultValue={editingProduct.status}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="active">Active</SelectItem>
+                      <SelectItem value="inactive">Inactive</SelectItem>
+                      <SelectItem value="draft">Draft</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="featured">Featured</Label>
+                  <Select defaultValue={editingProduct.featured ? "true" : "false"}>
+                    <SelectTrigger className="mt-1">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="true">Yes</SelectItem>
+                      <SelectItem value="false">No</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="flex justify-end space-x-2 pt-4">
+                <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+                  Cancel
+                </Button>
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  Save Changes
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

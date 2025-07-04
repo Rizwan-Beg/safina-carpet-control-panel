@@ -12,6 +12,10 @@ import Orders from "./pages/Orders";
 import Customers from "./pages/Customers";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import MailInbox from "./pages/MailInbox";
+import Chat from "./pages/Chat";
+import MeetingSchedule from "./pages/MeetingSchedule";
+import CustomerFavorites from "./pages/CustomerFavorites";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +36,10 @@ const App = () => (
             <Route path="categories" element={<Categories />} />
             <Route path="orders" element={<Orders />} />
             <Route path="customers" element={<Customers />} />
+            <Route path="customer-favorites" element={<CustomerFavorites />} />
+            <Route path="mail-inbox" element={<MailInbox />} />
+            <Route path="chat" element={<Chat />} />
+            <Route path="meeting-schedule" element={<MeetingSchedule />} />
             <Route path="custom-requests" element={<div className="p-6">Custom Requests Page Coming Soon</div>} />
             <Route path="messages" element={<div className="p-6">Messages Page Coming Soon</div>} />
             <Route path="international" element={<div className="p-6">International Clients Page Coming Soon</div>} />
