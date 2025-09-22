@@ -15,7 +15,7 @@ import { Search, Send, Phone, Video, MoreVertical, MessageCircle } from 'lucide-
 // Chat message and conversation structures (converted from TypeScript interfaces)
 const mockChatMessages = [];
 
-const mockConversations: Conversation[] = [
+const mockConversations = [
   {
     id: '1',
     customerName: 'Rajesh Kumar',
@@ -117,7 +117,7 @@ export default function Chat() {
   const sendMessage = () => {
     if (!newMessage.trim() || !selectedConversation) return;
 
-    const message: ChatMessage = {
+    const message = {
       id: Date.now().toString(),
       senderId: 'admin',
       senderName: 'Admin',

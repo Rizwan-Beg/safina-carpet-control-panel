@@ -27,7 +27,7 @@ import { Calendar, MapPin, Clock, User, Phone, Edit, Eye, Plus } from 'lucide-re
 
 // Meeting structure (converted from TypeScript interface)
 
-const mockMeetings: Meeting[] = [
+const mockMeetings = [
   {
     id: '1',
     customerName: 'Rajesh Kumar',

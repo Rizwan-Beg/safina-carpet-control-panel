@@ -27,7 +27,7 @@ import { Search, Heart, Package, User, Eye, Mail, Phone } from 'lucide-react';
 
 // Customer favorite structure (converted from TypeScript interface)
 
-const mockFavorites: CustomerFavorite[] = [
+const mockFavorites = [
   {
     id: '1',
     customerName: 'Rajesh Kumar',

@@ -27,7 +27,7 @@ import { Search, Mail, Eye, Reply, Archive, Star } from 'lucide-react';
 
 // Email structure (converted from TypeScript interface)
 
-const mockEmails: Email[] = [
+const mockEmails = [
   {
     id: '1',
     sender: 'Rajesh Kumar',
