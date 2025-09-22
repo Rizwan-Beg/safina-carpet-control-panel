@@ -52,7 +52,7 @@ export default function Products() {
     return matchesSearch && matchesCategory && matchesStatus;
   });
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'active':
         return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
@@ -65,7 +65,7 @@ export default function Products() {
     }
   };
 
-  const formatCurrency = (amount: number) => {
+  const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
@@ -73,13 +73,13 @@ export default function Products() {
     }).format(amount);
   };
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (event) => {
     const files = event.target.files;
     if (files) {
       Array.from(files).forEach(file => {
         const reader = new FileReader();
         reader.onload = (e) => {
-          const result = e.target?.result as string;
+          const result = e.target?.result;
           setUploadedImages(prev => [...prev, result]);
         };
         reader.readAsDataURL(file);
@@ -87,11 +87,11 @@ export default function Products() {
     }
   };
 
-  const removeImage = (index: number) => {
+  const removeImage = (index) => {
     setUploadedImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  const openEditDialog = (product: any) => {
+  const openEditDialog = (product) => {
     setEditingProduct(product);
     setUploadedImages([]);
     setIsEditDialogOpen(true);
