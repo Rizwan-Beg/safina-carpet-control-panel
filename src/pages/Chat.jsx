@@ -123,7 +123,7 @@ const mockConversations: Conversation[] = [
 
 export default function Chat() {
   const [conversations, setConversations] = useState(mockConversations);
-  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(conversations[0]);
+  const [selectedConversation, setSelectedConversation] = useState(conversations[0]);
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 

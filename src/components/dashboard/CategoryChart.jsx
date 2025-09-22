@@ -1,10 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
-import { CategorySales } from '@/types';
-
-interface CategoryChartProps {
-  data: CategorySales[];
-}
 
 const COLORS = [
   'hsl(var(--primary))',
@@ -14,12 +9,12 @@ const COLORS = [
   'hsl(35, 50%, 65%)'
 ];
 
-export function CategoryChart({ data }: CategoryChartProps) {
-  const formatCurrency = (value: number) => {
+export function CategoryChart({ data }) {
+  const formatCurrency = (value) => {
     return `₹${(value / 1000).toFixed(0)}K`;
   };
 
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: any) => {
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
     const RADIAN = Math.PI / 180;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -67,7 +62,7 @@ export function CategoryChart({ data }: CategoryChartProps) {
                 ))}
               </Pie>
               <Tooltip 
-                formatter={(value: number) => [formatCurrency(value), 'Sales']}
+                formatter={(value) => [formatCurrency(value), 'Sales']}
                 contentStyle={{
                   backgroundColor: 'hsl(var(--card))',
                   border: '1px solid hsl(var(--border))',

@@ -1,11 +1,7 @@
 import { useAuthStore } from '@/store';
 import { LoginForm } from './LoginForm';
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-}
-
-export function ProtectedRoute({ children }: ProtectedRouteProps) {
+export function ProtectedRoute({ children }) {
   const { isAuthenticated, isLoading } = useAuthStore();
 
   if (isLoading) {

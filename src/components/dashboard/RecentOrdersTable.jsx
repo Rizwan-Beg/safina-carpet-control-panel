@@ -9,16 +9,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Order } from '@/types';
 import { formatDistanceToNow } from 'date-fns';
 import { Eye } from 'lucide-react';
 
-interface RecentOrdersTableProps {
-  orders: Order[];
-}
-
-export function RecentOrdersTable({ orders }: RecentOrdersTableProps) {
-  const getStatusColor = (status: Order['status']) => {
+export function RecentOrdersTable({ orders }) {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'pending':
         return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
@@ -35,7 +30,7 @@ export function RecentOrdersTable({ orders }: RecentOrdersTableProps) {
     }
   };
 
-  const formatCurrency = (amount: number) => {
+  const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',

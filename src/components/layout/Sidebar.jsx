@@ -86,7 +86,7 @@ export function AppSidebar() {
   const { user } = useAuthStore();
   const collapsed = !sidebarOpen;
 
-  const getNavClass = ({ isActive }: { isActive: boolean }) =>
+  const getNavClass = ({ isActive }) =>
     cn(
       'w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors',
       isActive && 'bg-sidebar-primary text-sidebar-primary-foreground font-medium'

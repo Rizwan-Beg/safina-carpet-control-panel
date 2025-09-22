@@ -108,7 +108,7 @@ const mockFavorites: CustomerFavorite[] = [
 
 export default function CustomerFavorites() {
   const [favorites, setFavorites] = useState(mockFavorites);
-  const [selectedFavorite, setSelectedFavorite] = useState<CustomerFavorite | null>(null);
+  const [selectedFavorite, setSelectedFavorite] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('all');
 

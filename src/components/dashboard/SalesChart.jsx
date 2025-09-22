@@ -1,17 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import { SalesData } from '@/types';
 
-interface SalesChartProps {
-  data: SalesData[];
-}
-
-export function SalesChart({ data }: SalesChartProps) {
-  const formatCurrency = (value: number) => {
+export function SalesChart({ data }) {
+  const formatCurrency = (value) => {
     return `₹${(value / 1000).toFixed(0)}K`;
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-IN', { 
       month: 'short', 
@@ -42,7 +37,7 @@ export function SalesChart({ data }: SalesChartProps) {
                 className="text-xs"
               />
               <Tooltip 
-                formatter={(value: number) => [formatCurrency(value), 'Sales']}
+                formatter={(value) => [formatCurrency(value), 'Sales']}
                 labelFormatter={(label) => `Date: ${formatDate(label)}`}
                 contentStyle={{
                   backgroundColor: 'hsl(var(--card))',

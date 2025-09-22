@@ -40,8 +40,8 @@ export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<any>(null);
-  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [uploadedImages, setUploadedImages] = useState([]);
 
   const filteredProducts = mockProducts.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

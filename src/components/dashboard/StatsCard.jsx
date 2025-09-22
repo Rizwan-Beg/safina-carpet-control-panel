@@ -1,18 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { LucideIcon } from 'lucide-react';
 
-interface StatsCardProps {
-  title: string;
-  value: string | number;
-  description?: string;
-  icon: LucideIcon;
-  trend?: {
-    value: number;
-    isPositive: boolean;
-  };
-  className?: string;
-}
+// StatsCard component for displaying key performance indicators
 
 export function StatsCard({ 
   title, 
@@ -21,8 +10,8 @@ export function StatsCard({
   icon: Icon, 
   trend,
   className 
-}: StatsCardProps) {
-  const formatValue = (val: string | number) => {
+}) {
+  const formatValue = (val) => {
     if (typeof val === 'number') {
       if (val >= 1000000) {
         return `₹${(val / 1000000).toFixed(1)}M`;
