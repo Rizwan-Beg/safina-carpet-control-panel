@@ -1,33 +1,8 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { User, DashboardStats, AppSettings } from '@/types';
-
-interface AuthState {
-  user: User | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-  setUser: (user: User) => void;
-}
-
-interface UIState {
-  sidebarCollapsed: boolean;
-  theme: 'light' | 'dark' | 'system';
-  toggleSidebar: () => void;
-  setSidebarCollapsed: (collapsed: boolean) => void;
-  setTheme: (theme: 'light' | 'dark' | 'system') => void;
-}
-
-interface AppState {
-  dashboardStats: DashboardStats | null;
-  settings: AppSettings;
-  setDashboardStats: (stats: DashboardStats) => void;
-  updateSettings: (settings: Partial<AppSettings>) => void;
-}
 
 // Auth Store
-export const useAuthStore = create<AuthState>()(
+export const useAuthStore = create(
   devtools(
     persist(
       (set, get) => ({
@@ -35,12 +10,12 @@ export const useAuthStore = create<AuthState>()(
         isAuthenticated: false,
         isLoading: false,
         
-        login: async (email: string, password: string) => {
+        login: async (email, password) => {
           set({ isLoading: true });
           try {
             // Mock authentication - replace with real API
             if (email === 'admin@safinacarpets.com' && password === 'admin123') {
-              const user: User = {
+              const user = {
                 id: '1',
                 name: 'Admin User',
                 email: 'admin@safinacarpets.com',
@@ -63,7 +38,7 @@ export const useAuthStore = create<AuthState>()(
           localStorage.removeItem('auth-storage');
         },
         
-        setUser: (user: User) => {
+        setUser: (user) => {
           set({ user, isAuthenticated: true });
         }
       }),
@@ -80,7 +55,7 @@ export const useAuthStore = create<AuthState>()(
 );
 
 // UI Store
-export const useUIStore = create<UIState>()(
+export const useUIStore = create(
   devtools(
     persist(
       (set) => ({
@@ -91,11 +66,11 @@ export const useUIStore = create<UIState>()(
           set((state) => ({ sidebarCollapsed: !state.sidebarCollapsed }));
         },
         
-        setSidebarCollapsed: (collapsed: boolean) => {
+        setSidebarCollapsed: (collapsed) => {
           set({ sidebarCollapsed: collapsed });
         },
         
-        setTheme: (theme: 'light' | 'dark' | 'system') => {
+        setTheme: (theme) => {
           set({ theme });
           // Apply theme to document
           const root = document.documentElement;
@@ -123,7 +98,7 @@ export const useUIStore = create<UIState>()(
 );
 
 // App Store
-export const useAppStore = create<AppState>()(
+export const useAppStore = create(
   devtools(
     (set) => ({
       dashboardStats: null,
@@ -141,11 +116,11 @@ export const useAppStore = create<AppState>()(
         }
       },
       
-      setDashboardStats: (stats: DashboardStats) => {
+      setDashboardStats: (stats) => {
         set({ dashboardStats: stats });
       },
       
-      updateSettings: (newSettings: Partial<AppSettings>) => {
+      updateSettings: (newSettings) => {
         set((state) => ({
           settings: { ...state.settings, ...newSettings }
         }));
