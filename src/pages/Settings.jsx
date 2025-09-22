@@ -43,7 +43,7 @@ export default function Settings() {
     });
   };
 
-  const handleNotificationChange = (key: keyof typeof formData.notifications, value: boolean) => {
+  const handleNotificationChange = (key, value) => {
     setFormData(prev => ({
       ...prev,
       notifications: {

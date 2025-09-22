@@ -25,17 +25,7 @@ import {
 } from '@/components/ui/dialog';
 import { Search, Mail, Eye, Reply, Archive, Star } from 'lucide-react';
 
-interface Email {
-  id: string;
-  sender: string;
-  email: string;
-  subject: string;
-  message: string;
-  timestamp: Date;
-  isRead: boolean;
-  isStarred: boolean;
-  priority: 'low' | 'medium' | 'high';
-}
+// Email structure (converted from TypeScript interface)
 
 const mockEmails: Email[] = [
   {
@@ -76,26 +66,26 @@ const mockEmails: Email[] = [
 export default function MailInbox() {
   const [searchTerm, setSearchTerm] = useState('');
   const [emails, setEmails] = useState(mockEmails);
-  const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
+  const [selectedEmail, setSelectedEmail] = useState(null);
 
   const filteredEmails = emails.filter(email =>
     email.sender.toLowerCase().includes(searchTerm.toLowerCase()) ||
     email.subject.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const markAsRead = (emailId: string) => {
+  const markAsRead = (emailId) => {
     setEmails(emails.map(email =>
       email.id === emailId ? { ...email, isRead: true } : email
     ));
   };
 
-  const toggleStar = (emailId: string) => {
+  const toggleStar = (emailId) => {
     setEmails(emails.map(email =>
       email.id === emailId ? { ...email, isStarred: !email.isStarred } : email
     ));
   };
 
-  const getPriorityColor = (priority: string) => {
+  const getPriorityColor = (priority) => {
     switch (priority) {
       case 'high':
         return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';

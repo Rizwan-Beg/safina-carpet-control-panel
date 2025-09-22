@@ -12,25 +12,8 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Search, Send, Phone, Video, MoreVertical, MessageCircle } from 'lucide-react';
 
-interface ChatMessage {
-  id: string;
-  senderId: string;
-  senderName: string;
-  message: string;
-  timestamp: Date;
-  isFromCustomer: boolean;
-}
-
-interface Conversation {
-  id: string;
-  customerName: string;
-  customerEmail: string;
-  lastMessage: string;
-  lastMessageTime: Date;
-  unreadCount: number;
-  isOnline: boolean;
-  messages: ChatMessage[];
-}
+// Chat message and conversation structures (converted from TypeScript interfaces)
+const mockChatMessages = [];
 
 const mockConversations: Conversation[] = [
   {

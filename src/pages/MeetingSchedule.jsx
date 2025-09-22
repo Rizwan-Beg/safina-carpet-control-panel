@@ -25,18 +25,7 @@ import {
 } from '@/components/ui/dialog';
 import { Calendar, MapPin, Clock, User, Phone, Edit, Eye, Plus } from 'lucide-react';
 
-interface Meeting {
-  id: string;
-  customerName: string;
-  customerPhone: string;
-  customerEmail: string;
-  date: Date;
-  time: string;
-  address: string;
-  purpose: string;
-  status: 'scheduled' | 'confirmed' | 'completed' | 'cancelled';
-  notes?: string;
-}
+// Meeting structure (converted from TypeScript interface)
 
 const mockMeetings: Meeting[] = [
   {
@@ -90,7 +79,7 @@ const mockMeetings: Meeting[] = [
 
 export default function MeetingSchedule() {
   const [meetings, setMeetings] = useState(mockMeetings);
-  const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null);
+  const [selectedMeeting, setSelectedMeeting] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredMeetings = meetings.filter(meeting =>
@@ -98,7 +87,7 @@ export default function MeetingSchedule() {
     meeting.address.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'scheduled':
         return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
@@ -121,7 +110,7 @@ export default function MeetingSchedule() {
     }).format(date);
   };
 
-  const updateMeetingStatus = (meetingId: string, newStatus: Meeting['status']) => {
+  const updateMeetingStatus = (meetingId, newStatus) => {
     setMeetings(meetings.map(meeting =>
       meeting.id === meetingId ? { ...meeting, status: newStatus } : meeting
     ));

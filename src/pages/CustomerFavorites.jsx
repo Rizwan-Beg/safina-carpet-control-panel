@@ -25,19 +25,7 @@ import {
 } from '@/components/ui/dialog';
 import { Search, Heart, Package, User, Eye, Mail, Phone } from 'lucide-react';
 
-interface CustomerFavorite {
-  id: string;
-  customerName: string;
-  customerEmail: string;
-  customerPhone?: string;
-  productId: string;
-  productName: string;
-  productCategory: string;
-  productPrice: number;
-  dateAdded: Date;
-  isInStock: boolean;
-  priority: 'low' | 'medium' | 'high';
-}
+// Customer favorite structure (converted from TypeScript interface)
 
 const mockFavorites: CustomerFavorite[] = [
   {
@@ -119,7 +107,7 @@ export default function CustomerFavorites() {
     return matchesSearch && matchesCategory;
   });
 
-  const getPriorityColor = (priority: string) => {
+  const getPriorityColor = (priority) => {
     switch (priority) {
       case 'high':
         return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
@@ -132,7 +120,7 @@ export default function CustomerFavorites() {
     }
   };
 
-  const formatCurrency = (amount: number) => {
+  const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
